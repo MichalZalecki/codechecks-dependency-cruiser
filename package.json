@@ -1,0 +1,19 @@
+{
+  "name": "codechecks-dependency-cruiser",
+  "version": "0.0.1-beta.0",
+  "description": "Validate module dependencies against predefined or your own rules",
+  "main": "lib/index.js",
+  "repository": "https://github.com/MichalZalecki/codechecks-dependency-cruiser",
+  "author": "Michal Zalecki <michal@michalzalecki.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "dependency-cruiser": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.2",
+    "typescript": "^3.5.3"
+  }
+}

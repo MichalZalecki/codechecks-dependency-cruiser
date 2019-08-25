@@ -1,0 +1,1 @@
+# codechecks-dependency-cruiser
