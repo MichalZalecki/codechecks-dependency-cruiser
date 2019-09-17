@@ -1,13 +1,12 @@
+import * as path from "path";
 import { codechecks, CodeChecksReport } from "@codechecks/client";
 import { cruise, IForbiddenRuleType } from "dependency-cruiser";
-import { noOrphans } from "./rules";
 import { pluralize } from "./utils";
-
-type RuleName = "no-orphans";
 
 interface DependencyCruiserOptions {
   paths: string[];
-  rules: RuleName[];
+  exclude?: string;
+  config?: string;
 }
 
 interface Violation {
@@ -15,26 +14,43 @@ interface Violation {
   to: string;
   rule: {
     severity: "error";
-    name: RuleName;
+    name: string;
   };
 }
 
-const rules: { [key in RuleName]: IForbiddenRuleType } = {
-  "no-orphans": noOrphans,
-};
+function canRequire(filePath: string): boolean {
+  try {
+    require(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function readRuleSet(configFilePath?: string): { [key: string]: any } {
+  if (configFilePath) {
+    return require(path.resolve(configFilePath));
+  } else if (canRequire(path.resolve(".dependency-cruiser.js"))) {
+    return require(path.resolve(".dependency-cruiser.js"));
+  } else if (canRequire(path.resolve(".dependency-cruiser.js"))) {
+    return require(path.resolve(".dependency-cruiser.js"));
+  }
+  throw new Error("dependency-cruiser config not found");
+}
 
 async function dependencyCruiser(options: DependencyCruiserOptions): Promise<void> {
-  const forbidden = options.rules.map(ruleName => rules[ruleName]);
+  const ruleSet = readRuleSet(options.config);
 
   const { output } = cruise(options.paths, {
-    exclude: "(node_modules)",
+    exclude: options.exclude,
     validate: true,
-    ruleSet: {
-      forbidden,
-    },
+    ruleSet,
   });
 
-  const shortDescription = `Result: ${pluralize(output.summary.error, ["errors", "error", "errors"])}`;
+  const errorsText = pluralize(output.summary.error, ["error", "errors"]);
+  const warnsText = pluralize(output.summary.warn, ["warn", "warns"]);
+  const infosText = pluralize(output.summary.info, ["info", "infos"]);
+  const shortDescription = `Result: ${errorsText}, ${warnsText}, ${infosText}`;
 
   const longDescription = `
 | Path | Violation | Severity |
