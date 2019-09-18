@@ -16,12 +16,12 @@ checks:
 
 Options
 
-| name | required | description |
-| --- | --- | --- |
-| `paths` | yes | files or directories to cruise |
-| `graph` | no | whether to generate dependency graph |
-| `exclude` | no | a regexp for modules to exclude from being cruised |
-| `config` | no | custom path to .dependency-cruiser.js or .dependency-cruiser.json |
+| name | required | type | description |
+| --- | --- | ---  | --- |
+| `paths` | yes | `string[]` | files or directories to cruise |
+| `graph` | no | `boolean` | whether to generate dependency graph |
+| `exclude` | no | `string` | a regexp for modules to exclude from being cruised |
+| `config` | no | `string` | custom path to .dependency-cruiser.js or .dependency-cruiser.json |
 
 ## Install GraphViz
 
