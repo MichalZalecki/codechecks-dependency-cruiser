@@ -1,6 +1,6 @@
 {
   "name": "codechecks-dependency-cruiser",
-  "version": "0.0.1-beta.5",
+  "version": "0.0.1-beta.6",
   "description": "Validate module dependencies against predefined or your own rules",
   "main": "lib/index.js",
   "repository": "https://github.com/MichalZalecki/codechecks-dependency-cruiser",
