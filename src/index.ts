@@ -61,7 +61,7 @@ function createGraph(options: DependencyCruiserOptions): string {
 async function saveArtifact(name: string, path: string) {
   await codechecks.saveFile(name, path);
 
-  const artifactLink = codechecks.getArtifactLink(path);
+  const artifactLink = codechecks.getArtifactLink(name);
 
   return artifactLink;
 }
