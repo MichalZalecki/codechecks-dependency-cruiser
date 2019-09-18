@@ -21,6 +21,13 @@ Options
 | `exclude` | no | a regexp for modules to exclude from being cruised |
 | `config` | no | custom path to .dependency-cruiser.js or .dependency-cruiser.json |
 
+## Install GraphViz
+
+macOS
+
+    brew install graphviz
+
 ## Limitations
 
 * Extending presets is not supported, use self-contained dependency-cruiser configuration
+* Generating graphs require [GraphViz](http://www.graphviz.org/) installed
