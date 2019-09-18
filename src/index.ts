@@ -96,7 +96,7 @@ async function dependencyCruiser(options: DependencyCruiserOptions): Promise<voi
 | :--: | :-------: | :------: |
 ${output.summary.violations
   .map((v: Violation) => `| ${v.from} | ${v.rule.name} | ${v.rule.severity} |`)
-  .join("\n")}${graphPath ? `
+  .join("\n")}${graphPath && codechecks.context.isLocalMode ? `
 
 Graph generated: ${graphPath}` : ""}`;
 
